@@ -1,0 +1,15 @@
+{
+	"name": "mkeromen/todo-rest-api",
+	"description": "Simple exercice for todo list rest api",
+	"authors": [{
+		"name":"Matthieu Keromen"
+	}],
+	"require": {
+		"silex/silex":"~1.2"
+	},
+	"autoload": {
+        "psr-0": {
+			"RestApp": "src/"
+		}
+    }
+}

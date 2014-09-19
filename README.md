@@ -22,7 +22,7 @@ Installation
 > - `composer install` à la racine
 > - `mysql -u user -p password db_name < resources/todo.sql`
 
-Have fun
+Have fun ;)
 -------------
 Les verbes HTTP suivants : GET, POST, PUT, DELETE sont disponibles à des routes bien spécifiques :
 
@@ -37,6 +37,7 @@ http://yourdomain.com/api/v1/{usertoken}/todo/update
 
 >DELETE
 http://yourdomain.com/api/v1/{usertoken}/todo/delete
+
 **NB :** On ne peut appeler une ressource qu'avec le bon verbe HTTP, au risque de se faire retourner une erreur 405 (Method not allowed).
 
 Le token (gère un seul et même utilisateur) et est défini dans le fichier `resources/config.php` dans la clé `api.validtoken`. Si un mauvais token est passé, l'application renverra une erreur 403.

@@ -3,9 +3,9 @@ namespace RestApp\Service;
 
 interface Connection
 {
-	function connect();
+    function connect();
 
-	function close();
+    function close();
 }
 
 ?>

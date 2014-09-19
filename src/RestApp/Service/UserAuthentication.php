@@ -7,26 +7,26 @@ use Symfony\Component\HttpFoundation\Request;
 class UserAuthentication
 {
 	
-	private $validToken;
+    private $validToken;
 
-	public function __construct($validToken)
-	{
-		$this->validToken = $validToken;
-	}
+    public function __construct($validToken)
+    {
+        $this->validToken = $validToken;
+    }
 	
-	/**
+    /**
      * Check if user is authorized to authenticate
      *
-	 * @param int $requestToken Token pass in the request
-	 * @return Request $request HttpFoundation request
+     * @param int $requestToken Token pass in the request
+     * @return Request $request HttpFoundation request
      */
-	public function authorize($requestToken, Request $request)
+    public function authorize($requestToken, Request $request)
     {
         if ($this->validToken !== $requestToken) {
             throw new  AccessDeniedHttpException(sprintf('Token %s is invalid', $requestToken));
         }
 		
-		return $request;
+        return $request;
     }
 }
 ?>

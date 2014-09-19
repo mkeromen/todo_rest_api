@@ -1,9 +1,9 @@
 <?php
 // Configuration for db
-$app['db.host']  		= 'localhost';
-$app['db.name']  		= 'todo';
-$app['db.user']  		= 'root';
-$app['db.password']  	= 'cachou';
+$app['db.host']  	= 'localhost';
+$app['db.name']  	= 'todo';
+$app['db.user']  	= 'root';
+$app['db.password']  	= 'pwd';
 
 // Configuration for REST API
 $app['api.endpoint'] 	= "/api";

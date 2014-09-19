@@ -28,10 +28,13 @@ Les verbes HTTP suivants : GET, POST, PUT, DELETE sont disponibles à des routes
 
 >GET
 http://yourdomain.com/api/v1/{usertoken}/todo/get
+
 >POST
 http://yourdomain.com/api/v1/{usertoken}/todo/save
+
 >PUT
 http://yourdomain.com/api/v1/{usertoken}/todo/update
+
 >DELETE
 http://yourdomain.com/api/v1/{usertoken}/todo/delete
 **NB :** On ne peut appeler une ressource qu'avec le bon verbe HTTP, au risque de se faire retourner une erreur 405 (Method not allowed).
@@ -41,10 +44,13 @@ Le token (gère un seul et même utilisateur) et est défini dans le fichier `re
 Les webservices peuvent être également appelés avec CURL. Des fichiers de tests sont disponibles dans le dossier `resources/data_client/`
 >GET
 >`curl http://yourdomain.com/api/v1/{token}/todo/get -s -w "\n"`
+
 >POST
 >`curl -X POST http://yourdomain.com/api/v1/{token}/todo/save --data-binary @path/to/resources/data_client/data_to_save.json -H 'Content-Type: application/json' -s -w "\n"`
+
 >PUT
 >`curl -X PUT http://yourdomain.com/api/v1/{token}/todo/update --data-binary @path/to/resources/data_client/data_to_update.json -H 'Content-Type: application/json' -s -w "\n"`
+
 >DELETE
 >`curl -X PUT http://yourdomain.com/api/v1/{token}/todo/update --data-binary @path/to/resources/data_client/data_to_delete.json -H 'Content-Type: application/json' -s -w "\n"`
 

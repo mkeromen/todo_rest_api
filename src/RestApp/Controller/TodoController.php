@@ -6,61 +6,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TodoController 
 {
-	public static $data = array();
 
-	public function __construct() 
-	{
-		self::$data = array(
-			"data" => array(
-				array(
-					"id" => 1,
-					"name" => "TODO 1",
-					"items" => array(
-						array(
-							"id" => 1,
-							"description" => "TODO 1: ma première tache de la journée",
-							"is_read" => 0,
-							"is_done" => 0				
-						),
-						array(
-							"id" => 2,
-							"description" => "TODO 1: ma deuxième tache de la journée",
-							"is_read" => 1,
-							"is_done" => 1				
-						),								
-					)
-				),
-				array(
-					"id" => 1,
-					"name" => "TODO 2",
-					"items" => array(
-						array(						
-							"id" => 0,
-							"description" => "TODO 2: ma première tache de la journée",
-							"is_read" => 0,
-							"is_done" => 0
-						),
-						array(
-							"id" => 2,
-							"description" => "TODO 2: ma deuxième tache de la journée",
-							"is_read" => 1,
-							"is_done" => 1				
-						),					
-					)				
-				),
-				array(
-					"id" => 2,
-					"name" => "TODO 3",
-					"items" => array(
-						array(
-							"id" => 0,
-							"description" => "TODO 3 : ma première tache de la journée",
-							"is_read" => 0,
-							"is_done" => 0
-						)			
-					)				
-				)	)
-			);		
+	private $todoRepository;
+
+	public function __construct(\RestApp\Repository\TodoRepository $todoRepository) 
+	{	
+		$this->todoRepository = $todoRepository;			
 	}
 	
 	/**
@@ -70,36 +21,62 @@ class TodoController
      */
 	public function getAllTodo() 
 	{
-		// TODO : plug getAll with repo	
-		return new JsonResponse($this->data, 200);		
+		$data = $this->todoRepository->getAllTodo();
+		return new JsonResponse($data, 200);		
 	}
 
 	/**
      * Save and persist todo and items in database
-     *
+     * Request has JSON data
+	 *
 	 * @param Request $request
      * @return JsonResponse
      */
 	public function saveTodo(Request $request) 
-	{
-		$todoData = $request->request->get("data");
-		// TODO : plug save with repo
+	{	
+		$this->todoRepository->saveTodo($this->getDataFromRequest($request));
 		return new JsonResponse(array(
 			'statusCode' 	=> 1,
-			'message' 		=> 'Items has been stored successfully'), 
-		200);
+			'message' 		=> 'Items has been stored successfully.')
+		);
 	}
 
-	public function updateTodo($id, Request $request)
+	/**
+     * Update and persist todo and items in database
+	 * Request has JSON data
+     *
+	 * @param Request $request
+     * @return JsonResponse
+     */
+	public function updateTodo(Request $request)
 	{
-		$todoData = $request->request->get("data");
-		// update par l'id avec les data passé
-		return new JsonResponse(array('ok'));
+		$this->todoRepository->updateTodo($this->getDataFromRequest($request));
+		return new JsonResponse(array(
+			'statusCode' 	=> 200,
+			'message' 		=> 'Item(s) has been updated successfully.')
+		);
 	}
 
-	public function deleteTodo($id, Request $request)
+	/**
+     * Delete and persist todo and items in database
+	 * Request has JSON data
+     *
+	 * @param Request $request
+     * @return JsonResponse
+     */
+	public function deleteTodo(Request $request)
 	{
-		return new JsonResponse(array('ok'));
+		$this->todoRepository->deleteTodo($this->getDataFromRequest($request));		
+		return new JsonResponse(array(
+			'statusCode' 	=> 200,
+			'message' 		=> 'Item(s) has been deleted successfully.')
+		);
+	}
+	
+	private function getDataFromRequest(Request $request)
+	{
+		$requestData = $request->request->get('data');
+		return $requestData;
 	}
 }
 ?>

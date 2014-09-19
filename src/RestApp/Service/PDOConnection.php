@@ -20,6 +20,11 @@ class PDOConnection implements Connection
 		$this->password 	= $app['db.password'];	
 	}
 
+	/**
+     * Connect to the database
+     *
+	 * @param \PDO $this->connection PDO resource connexion
+     */
 	public function connect()
 	{	
 		try {
@@ -30,6 +35,9 @@ class PDOConnection implements Connection
 		}	
 	}
 
+	/**
+     * Close connexion to the database
+     */
 	public function close()
 	{
 		$this->connection = null;

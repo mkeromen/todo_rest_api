@@ -4,7 +4,7 @@ namespace RestApp\Service;
 use Symfony\Component\HttpKernel\Exception\ AccessDeniedHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserConverter
+class UserAuthentication
 {
 	
 	private $validToken;
@@ -14,6 +14,12 @@ class UserConverter
 		$this->validToken = $validToken;
 	}
 	
+	/**
+     * Check if user is authorized to authenticate
+     *
+	 * @param int $requestToken Token pass in the request
+	 * @return Request $request Token pass in the request
+     */
 	public function authorize($requestToken, Request $request)
     {
         if ($this->validToken !== $requestToken) {

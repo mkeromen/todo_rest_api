@@ -20,16 +20,25 @@ class PDOConnection implements Connection
 		$this->password 	= $app['db.password'];	
 	}
 
+	/**
+     * Connect to the database
+     *
+	 * @param \PDO $this->connection PDO resource connexion
+     */
 	public function connect()
 	{	
 		try {
 			$this->connection = new \PDO($this->dns, $this->user, $this->password);
-			return $$this->connection;
+			return $this->connection;
 		} catch(\Exception $e) {
 			throw new \Exception(e);
 		}	
 	}
 
+	/**
+     * Close connexion to the database
+     *
+     */
 	public function close()
 	{
 		$this->connection = null;

@@ -10,6 +10,11 @@ class TodoRepository
 		$this->connection = $connection;		
 	}
 
+	/**
+     * Fetch todo list and items
+     *
+     * @return array $data An array of todo and items
+     */
 	public function getAllTodo() 
 	{
 		$openConnection = $this->connection->connect();
@@ -38,13 +43,22 @@ class TodoRepository
 				"is_done" 		=> $row['is_done']	
 			);		
 			
-		}		
+		}
+
+		unset($todoIds);
+		return $data;		
 	}
 
+	/**
+     * Save todo list and items
+     *
+	 * @param array $data An array of todo and items
+     */
 	public function saveTodo($data)
-	{
+	{		
+		// TODO : Implements try/catch block		
 		$openConnection = $this->connection->connect();
-		// TODO : Implements try/catch block
+		
 		foreach($data as $todo) {
 			
 			$currentTime = time();
@@ -75,12 +89,18 @@ class TodoRepository
 		$this->connection->close();
 	}
 
-	public function updateTodo($id, Request $request)
+	/**
+     * Update todo list and items
+     *
+	 * @param array $data An array of todo and items
+     */
+	public function updateTodo($data)
 	{
+		// TODO : Implements try/catch block		
 		$openConnection = $this->connection->connect();
-		// TODO : Implements try/catch block
+		
 		foreach($data as $todo) {
-			
+
 			$currentTime = time();
 			$stmt = $openConnection->prepare("UPDATE 
 				todo_list SET name=:name, date_update=:date_update
@@ -96,10 +116,12 @@ class TodoRepository
 				foreach($todo['items'] as $item) {
 
 						$stmt = $openConnection->prepare("UPDATE 
-				todo_items SET description=:description, date_update=:date_update
-				WHERE todo_list_id=:todo_list_id");
+				todo_items SET description=:description, is_read=:is_read, is_done=:is_done
+				WHERE id=:id");
 					
-						$stmt->bindParam(':todo_list_id', $item['id']);
+						$stmt->bindParam(':id', $item['id']);
+						$stmt->bindParam(':is_read', $item['is_read']);
+						$stmt->bindParam(':is_done', $item['is_done']);
 						$stmt->bindParam(':description', $item['description']);
 						$stmt->execute();
 				}
@@ -107,6 +129,23 @@ class TodoRepository
 		}
 		
 		$this->connection->close();	
+	}
+
+	/**
+     * Update todo list and items
+     *
+	 * @param array $data An array of todo ids
+     */
+	public function deleteTodo($data)
+	{
+		// TODO : Implements try/catch block		
+		$openConnection 	= $this->connection->connect();
+		$todoIdsToDelete 	= array_map('intval', $data);
+		
+		$stmt = $openConnection->prepare("DELETE FROM todo_list WHERE id IN (".implode(",",$todoIdsToDelete).")");	
+		$stmt->execute();
+
+		$this->connection->connect();
 	}
 }
 ?>

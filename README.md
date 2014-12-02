@@ -46,16 +46,16 @@ Les webservices peuvent être également appelés avec CURL depuis mon serveur d
 Des fichiers de données sont disponibles dans le dossier `resources/data_client/`
 
 >GET  
->`curl http://192.99.169.178/api/v1/{token}/todo/get -s -w "\n"`
+>`curl http://54.149.80.11/rest/web/api/v1/{token}/todo/get -s -w "\n"`
 
 >POST  
->`curl -X POST http://192.99.169.178/api/v1/{token}/todo/save --data-binary @path/to/resources/data_client/data_to_save.json -H 'Content-Type: application/json' -s -w "\n"`
+>`curl -X POST http://54.149.80.11/rest/web/api/v1/{token}/todo/save --data-binary @path/to/resources/data_client/data_to_save.json -H 'Content-Type: application/json' -s -w "\n"`
 
 >PUT  
->`curl -X PUT http://192.99.169.178/api/v1/{token}/todo/update --data-binary @path/to/resources/data_client/data_to_update.json -H 'Content-Type: application/json' -s -w "\n"`
+>`curl -X PUT http://54.149.80.11/rest/web/api/v1/{token}/todo/update --data-binary @path/to/resources/data_client/data_to_update.json -H 'Content-Type: application/json' -s -w "\n"`
 
 >DELETE  
->`curl -X PUT http://192.99.169.178/api/v1/{token}/todo/update --data-binary @path/to/resources/data_client/data_to_delete.json -H 'Content-Type: application/json' -s -w "\n"`
+>`curl -X PUT http://54.149.80.11/rest/web/api/v1/{token}/todo/update --data-binary @path/to/resources/data_client/data_to_delete.json -H 'Content-Type: application/json' -s -w "\n"`
 
 Choix des solutions
 --------------- 
